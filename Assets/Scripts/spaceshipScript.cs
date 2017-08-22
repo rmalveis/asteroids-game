@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class spaceshipScript : MonoBehaviour
 {
     public int Speed = 10;
+    public GameObject bullet;
+    
+    // EXTRA
     public float LeftConstraint;
     public float RightConstraint;
     public float TopConstraint;
@@ -64,5 +67,11 @@ public class spaceshipScript : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, TopConstraint + Buffer, transform.position.z);
         }
+
+        if (Input.GetKeyDown("space"))
+        {
+            Instantiate(bullet, transform.position, Quaternion.identity);
+        }
+        
     }
 }
