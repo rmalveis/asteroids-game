@@ -27,5 +27,6 @@ public class bulletScript : MonoBehaviour
 
         _scoreText.GetComponent<scoreScript>().Score += 10;
         Destroy(other.gameObject);
+        Destroy(gameObject);
     }
 }
