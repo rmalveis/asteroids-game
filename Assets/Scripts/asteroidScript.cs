@@ -6,6 +6,8 @@ public class asteroidScript : MonoBehaviour
 {
     public int Speed = -5;
 
+    private GameObject _scoreText;
+
     // Use this for initialization
     void Start()
     {
@@ -15,13 +17,19 @@ public class asteroidScript : MonoBehaviour
 
         // Faz o asteroide rodar em si mesmo aleatoriamentre entre -200 e 200 graus
         rb.angularVelocity = Random.Range(-200, 200);
+        _scoreText = GameObject.FindGameObjectWithTag("score");
 
         // Destroi o asteroide após 3s, que ele não está mais visível na tela
         Destroy(gameObject, 3);
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!other.gameObject.CompareTag("bullet")) return;
+
+        _scoreText.GetComponent<scoreScript>().Score += 10;
+        Destroy(other.gameObject);
+        Destroy(gameObject);
     }
 }

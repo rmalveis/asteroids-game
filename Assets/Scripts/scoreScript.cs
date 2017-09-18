@@ -6,17 +6,28 @@ using UnityEngine.SocialPlatforms.Impl;
 public class scoreScript : MonoBehaviour
 {
     public int Score = 0;
-    private GUIText _guiText;
+    public GUIText ScoreGuiText;
+    public GUIText RecordGuiText;
 
     // Use this for initialization
     void Start()
     {
-        _guiText = GetComponent<GUIText>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        _guiText.text = "Score: " + Score;
+        if (Score > PlayerPrefs.GetInt("Record"))
+        {
+            PlayerPrefs.SetInt("Record", Score);
+        }
+        ScoreGuiText.fontStyle = FontStyle.Bold;
+        RecordGuiText.fontStyle = FontStyle.Bold;
+        ScoreGuiText.fontSize = 18;
+        RecordGuiText.fontSize = 18;
+        ScoreGuiText.text = "Score :" + Score;
+        RecordGuiText.text = "Record: " + PlayerPrefs.GetInt("Record");
+
+        ScoreGuiText.text = "Score: " + Score;
     }
 }
