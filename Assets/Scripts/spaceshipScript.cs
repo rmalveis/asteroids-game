@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Lifetime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class spaceshipScript : MonoBehaviour
@@ -11,6 +12,7 @@ public class spaceshipScript : MonoBehaviour
     public int Speed = 10;
     public GameObject Bullet;
     public GUIText LifeGui;
+    public AudioClip CollisionAudio;
 
     private int _life = 3;
 
@@ -34,7 +36,7 @@ public class spaceshipScript : MonoBehaviour
             Instantiate(Bullet, transform.position, Quaternion.identity);
         }
 
-        LifeGui.text = "Vidas: " + _life;
+        LifeGui.text = "Lifes: " + _life;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -43,10 +45,12 @@ public class spaceshipScript : MonoBehaviour
 
         Destroy(other.gameObject);
         _life = _life - 1;
+        AudioSource.PlayClipAtPoint(CollisionAudio, transform.position);
 
         if (_life == 0)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+            SceneManager.LoadScene("menu");
         }
     }
 }
